@@ -22,5 +22,39 @@ live_loop :flibble do
   sleep 1
 end
 播放，然后改变她的速率(rate)-当你用更高、更小值或者负值的时候，会有什么变化呢。
-
+观察一下，当你改变ambi_choir, rate的值未0.29的时候，会有什么变化。
+如果你选了更小的sleep值会有什么变化?
+如果sleep太小，导致报错，你可以选择稍大一点的sleep，然后重新试试。
 (未完待续)
+
+通过"#" 来注释一行代码，如下：
+live_loop :flibble do
+  sample :ambi_choir, rate: 0.3
+#  sample :bd_haus, rate: 1
+  sleep 1
+end
+它的意思是告诉计算机，去忽略掉这行代码。这就是注释。
+
+最后，讲下列的代码复制到缓冲区。
+live_loop :guit do
+  with_fx :echo, mix: 0.3, phase: 0.25 do
+    sample :guit_em9, rate: 0.5
+  end
+#  sample :guit_em9, rate: -0.5
+  sleep 8
+end
+
+live_loop :boom do
+  with_fx :reverb, room: 1 do
+    sample :bd_boom, amp: 10, rate: 1
+  end
+  sleep 8
+end
+不需要去理解它，你只需知道它有两个循环
+所以，两种声音在同一时间响起。为了做到更好，下面有一些建议给你：
+  尝试改变blue rate (疑惑)，注意下声音的改变
+  尝试改变sleep时间，会听到两个循环声，在不同的速度下快速旋转
+  尝试取消注释，（删掉#）
+  
+如果中途遇到了麻烦，不要担心，点击stop，然后将代码赋值到新的缓冲区，重新尝试。
+失败是成功之母，它会帮你更快学习
