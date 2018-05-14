@@ -1,0 +1,80 @@
+在早期章节里，我们使用sleep命令去控制何时触发声音。然而，我们还没能够控制一个声音持续的时间。
+为了给我们一个简单，有效控制声音持续时间的方法，Sonic Pi提供了ADSR 振幅包络( ADSR amplitude envelope
+这个概念，后续会解释) 一个振幅包络支持两方面的控制。
+   控制一个声音的持续性
+   控制一个声音的振幅
+   
+持续性(duration)就是声音存在的时间长度。
+一个更长的持续性，意味着你听到这个声音的时间更长。Sonic Pi的声音全部都有一个可控制的振幅包络，
+这个包络的全部持续时间，就是这个声音的持续时间。
+因此，控制包络，你就能控制持续性。
+
+ADSR包络，不仅仅控制持续性，它也能很好地控制声音的振幅。
+
+
+默认情况下，使用包络的部分就是它的释放时间(release time)
+这个时间，就是合成器的声音渐渐淡出的时间。所有的合成器的默认释放时间是1，也就是1秒钟。
+例如：play 70
+
+下面，这个音将持续1秒。
+play 70, release: 1
+
+现在非常简单地去改变声音持续的时间，只需要去修改release的值：
+play 60, release: 2
+
+我们也可以使声音持续非常短：
+play 60, release: 0.2
+
+个人理解部分（文章的理论有点难翻译）：
+释放阶段(release phase):就是声音慢慢变成无声
+进攻阶段(attach phase):就是声音从无慢慢变响
+
+默认情况下，进攻阶段是0，也就是说声音振幅从0到1，是瞬间的。
+这提供给合成器一个初始的敲击声。然而，你可能希望这个声音是逐渐增强的。
+看下面的例子：
+play 60, attack: 2
+sleep 3
+play 65, attack: 0.5
+
+你可以同时使用多个控制，下面的例子是一个短暂的增强，然后一个漫长的释放：
+play 60, attack: 0.7, release: 4
+
+当然，你可以反过来：
+play 60, attack: 4, release: 0.7
+
+
+还有一个阶段维持阶段(sustain phase)
+这个阶段是出于进攻阶段和释放阶段的：
+play 60, attack: 0.3, sustain: 1, release: 1
+
+维持阶段是很重要的，如果你希望在释放阶段前，混合音里有一个充分的呈现。
+当然，你可以设置attack: 和release:的值为0，这也是合法有效的。然而，释放阶段为0，
+在音频中会制作出喀嚓声。所以最好能用一个很小的值，例如0.2 来达到效果。
+
+还有一个衰退阶段(decay phase)：
+这个阶段在攻击阶段和维持阶段之间。并且指定一个时间，作用于attack_level 到decay_level
+(decay_level,除非你去特地设置，否者会使用sustain_level)
+默认情况下，decay是0，attack_level和sustain_level是1。
+例子：
+play 60, attack: 0.1, attack_level: 1, decay: 0.2, sustain_level: 0.4, sustain: 1, release: 0.5
+
+最后一个技巧是，decay_level默认是跟sustain_level是相同的。你可以特定去设置他：
+play 60, attack: 0.1, attack_level: 1, decay: 0.2, decay_level: 0.3,
+  sustain: 1, sustain_level: 0.4, release: 0.5
+  
+当然，decay_level也可以大于sustain_level:
+ play 60, attack: 0.1, attack_level: 0.1, decay: 0.2, decay_level: 1,
+ sustain: 0.5, sustain_level: 0.8, release: 1.5
+
+
+总结：
+ADSR envelopes 有下列阶段：
+1.进攻(attack)-从0振幅到attack_level
+2.衰退(decat)- 将振幅从attack_level变化到decay_level
+3.维持(sustain)- 将振幅从decay_level变化到sustain_level
+4.释放(release)-将振幅从sustain_level变化到0
+
+
+一个音的持续时间就是这4个阶段的时间之和。下面的例子，
+这个音的时间是0.5+1+2+0.5=4节拍
+play 60, attack: 0.5, attack_level: 1, decay: 1, sustain_level: 0.4, sustain: 2, release: 0.5
