@@ -1,0 +1,26 @@
+示例：
+sample :ambi_lunar_land
+
+Sonic Pi包含了很多样品。你可以使用它们，就像你使用play命令一样。
+play 36
+play 48
+sample :ambi_lunar_land
+sample :ambi_drone
+
+如果你想及时腾出空间来，你可以使用sleep命令：
+sample :ambi_lunar_land
+sleep 1
+play 48
+sleep 0.5
+play 36
+sample :ambi_drone
+sleep 1
+play 36
+
+注意，Sinic Pi再下一个声音开始前，不会等这个声音结束。
+这个sleep命令仅仅描述了这些触发声音的分离。这个允许你轻松地将声音层次化，
+创造有趣的重叠效果。
+
+这里有两种方式去发现Sonic Pi提供的大量样品。首先，你可以使用帮助系统。
+在底部菜单有一个采样器按钮。或者你可以使用自动拼写系统，只有你写了前缀，
+比如sample :ambi_，然后你将看到一系列样品名称，任你选择。
