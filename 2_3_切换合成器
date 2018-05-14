@@ -1,0 +1,40 @@
+Soinc Pi 有一些不同的仪器，我们命名为合成器。Sonic Pi的合成器是很有力道和表现力的，
+你在摸索中会收获很多快乐。首先，我们来学习怎么来挑选现在的合成器
+
+一个有趣的声音，(saw)锯齿波，尝试一下：
+use_synth :saw
+play 38
+sleep 0.25
+play 50
+sleep 0.25
+play 62
+
+尝试一下另一个声音-prophet：
+use_synth :prophet
+play 38
+sleep 0.25
+play 50
+sleep 0.25
+play 62
+
+连接两种声音：
+use_synth :saw
+play 38
+sleep 0.25
+play 50
+sleep 0.25
+use_synth :prophet
+play 57
+
+同时播放多种声音：
+use_synth :tb303
+play 38
+use_synth :dsaw
+play 50
+use_synth :prophet
+play 57
+
+注意，use_synth只影响接下来的play命令
+
+
+关于合成器，在软件的底部，在范例和效果器之间，就是合成器。里面涵盖了超过20种。
