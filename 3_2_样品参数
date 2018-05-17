@@ -1,0 +1,14 @@
+正如我们看到的合成器一样，我们可以轻松地使用参数来控制声音。样品完全支持相同的
+参数化机制。参数amp：,pan:。
+
+你可以改变样品的的振幅(响度)
+sample :ambi_lunar_land, amp: 0.5
+
+我们也能够使用pan:参数：
+sample :loop_amen, pan: -1
+sleep 0.877
+sample :loop_amen, pan: 1
+
+0.877是样品loop_amen的半个周期。
+
+最后，如果你使用use_synth_defaults设置合成器的默认值，那我们自己设置的参数就会被忽视。
